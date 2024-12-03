@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,12 @@ Route::middleware('jwt.verify')->group(function () {
     Route::get('/roles/{id}/permissions', [RoleController::class, 'getRolePermissions']);
     Route::put('/roles/{id}/permissions', [RoleController::class, 'setRolePermissions']);
     Route::get('/roles/{critery}/{value}/search', [RoleController::class, 'search']);
+
+    // users
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::get('/users/{critery}/{value}/search', [UserController::class, 'search']);
 });
