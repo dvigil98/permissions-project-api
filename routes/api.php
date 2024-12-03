@@ -19,26 +19,32 @@ use App\Http\Controllers\UserController;
 // login
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('jwt.verify')->group(function () {
+Route::middleware('jwtAuth')->group(function () {
 
     // logout
     Route::get('/logout', [AuthController::class, 'logout']);
 
     // roles
-    Route::get('/roles', [RoleController::class, 'index']);
-    Route::post('/roles', [RoleController::class, 'store']);
-    Route::get('/roles/{id}', [RoleController::class, 'show']);
-    Route::put('/roles/{id}', [RoleController::class, 'update']);
-    Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
-    Route::get('/roles/{id}/permissions', [RoleController::class, 'getRolePermissions']);
-    Route::put('/roles/{id}/permissions', [RoleController::class, 'setRolePermissions']);
-    Route::get('/roles/{critery}/{value}/search', [RoleController::class, 'search']);
+    Route::controller(RoleController::class)->prefix('/roles')->group(function () {
+
+        Route::get('/', 'index')->middleware('permission:listar_roles');
+        Route::post('/', 'store')->middleware('permission:agregar_roles');
+        Route::get('/{id}', 'show')->middleware('permission:ver_roles');
+        Route::put('/{id}', 'update')->middleware('permission:editar_roles');
+        Route::delete('/{id}', 'destroy')->middleware('permission:eliminar_roles');
+        Route::get('/{id}/permissions', 'getRolePermissions')->middleware('permission:asignar_permisos_roles');
+        Route::put('/{id}/permissions', 'setRolePermissions')->middleware('permission:asignar_permisos_roles');
+        Route::get('/{critery}/{value}/search', 'search')->middleware('permission:listar_roles');
+    });
 
     // users
-    Route::get('/users', [UserController::class, 'index']);
-    Route::post('/users', [UserController::class, 'store']);
-    Route::get('/users/{id}', [UserController::class, 'show']);
-    Route::put('/users/{id}', [UserController::class, 'update']);
-    Route::delete('/users/{id}', [UserController::class, 'destroy']);
-    Route::get('/users/{critery}/{value}/search', [UserController::class, 'search']);
+    Route::controller(UserController::class)->prefix('/users')->group(function () {
+
+        Route::get('/', 'index')->middleware('permission:listar_usuarios');
+        Route::post('/', 'store')->middleware('permission:agregar_usuarios');
+        Route::get('/{id}', 'show')->middleware('permission:ver_usuarios');
+        Route::put('/{id}', 'update')->middleware('permission:editar_usuarios');
+        Route::delete('/{id}', 'destroy')->middleware('permission:eliminar_usuarios');
+        Route::get('/{critery}/{value}/search', 'search')->middleware('permission:listar_usuarios');
+    });
 });
