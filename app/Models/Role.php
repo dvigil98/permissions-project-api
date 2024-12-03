@@ -22,6 +22,14 @@ class Role extends Model
         'deleted_at'
     ];
 
+    public function delete()
+    {
+        $this->rolePermissions()->delete();
+        $this->users()->delete();
+
+        return parent::delete();
+    }
+
     public function rolePermissions(): HasMany
     {
         return $this->hasMany(RolePermission::class);
