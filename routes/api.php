@@ -54,5 +54,6 @@ Route::middleware('jwtAuth')->group(function () {
     Route::controller(CommonController::class)->group(function () {
 
         Route::get('/common/roles', 'getRoles');
+        Route::get('/common/modules', 'getModules');
     });
 });
