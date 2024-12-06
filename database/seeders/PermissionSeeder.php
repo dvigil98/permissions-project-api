@@ -22,8 +22,8 @@ class PermissionSeeder extends Seeder
             ],
             // module: Roles y permisos
             [
-                'code' => 'listar_roles',
-                'name' => 'Listar roles',
+                'code' => 'ver_roles',
+                'name' => 'Ver roles',
                 'module' => 'Roles y permisos'
             ],
             [
@@ -42,19 +42,14 @@ class PermissionSeeder extends Seeder
                 'module' => 'Roles y permisos'
             ],
             [
-                'code' => 'ver_roles',
-                'name' => 'Ver roles',
-                'module' => 'Roles y permisos'
-            ],
-            [
                 'code' => 'asignar_permisos_roles',
                 'name' => 'Asignar permisos a roles',
                 'module' => 'Roles y permisos'
             ],
             // module: Usuarios
             [
-                'code' => 'listar_usuarios',
-                'name' => 'Listar usuarios',
+                'code' => 'ver_usuarios',
+                'name' => 'Ver usuarios',
                 'module' => 'Usuarios'
             ],
             [
@@ -70,11 +65,6 @@ class PermissionSeeder extends Seeder
             [
                 'code' => 'eliminar_usuarios',
                 'name' => 'Eliminar usuarios',
-                'module' => 'Usuarios'
-            ],
-            [
-                'code' => 'ver_usuarios',
-                'name' => 'Ver usuarios',
                 'module' => 'Usuarios'
             ]
         ];
